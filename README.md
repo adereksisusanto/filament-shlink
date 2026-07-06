@@ -5,6 +5,10 @@
 [![fix-code-style](https://github.com/adereksisusanto/filament-shlink/actions/workflows/fix-code-style.yml/badge.svg)](https://github.com/adereksisusanto/filament-shlink/actions/workflows/fix-code-style.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/adereksisusanto/filament-shlink.svg?style=flat-square)](https://packagist.org/packages/adereksisusanto/filament-shlink)
 
+<p align="center">
+  <img src="images/image.jpg" alt="Filament Shlink" width="100%">
+</p>
+
 Filament panel integration for [Shlink](https://shlink.io), a self-hosted URL shortener. Manage short URLs and tags directly from your Filament panel.
 
 ## Installation
@@ -123,7 +127,7 @@ Once registered, the plugin adds the following to your Filament panel:
 
 - PHP ^8.3
 - Filament ^5.0
-- Laravel ^11.0|^12.0
+- Laravel ^11.0|^12.0|^13.0
 
 ## Testing
 
