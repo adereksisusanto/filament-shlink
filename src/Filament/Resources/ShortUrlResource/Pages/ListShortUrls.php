@@ -3,6 +3,7 @@
 namespace Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource\Pages;
 
 use Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource;
+use Adereksisusanto\FilamentShlink\Filament\Widgets\VisitsOverviewWidget;
 use Adereksisusanto\FilamentShlink\FilamentShlink;
 use Adereksisusanto\FilamentShlink\Models\ShortUrl;
 use Filament\Actions\Action;
@@ -18,6 +19,13 @@ use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlIdentifier;
 class ListShortUrls extends ListRecords
 {
     protected static string $resource = ShortUrlResource::class;
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            VisitsOverviewWidget::class,
+        ];
+    }
 
     protected function getHeaderActions(): array
     {

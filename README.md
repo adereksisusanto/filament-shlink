@@ -63,7 +63,7 @@ return [
 
 Once registered, the plugin adds the following to your Filament panel:
 
-- **Dashboard Widget** — `VisitsOverviewWidget` displays total visits, short URL count, and tag count (auto-registered on the dashboard)
+- **Dashboard Widget** — `VisitsOverviewWidget` displays total visits, short URL count, and tag count (appears on the Short URLs page)
 - **Short URLs** — View all short URLs, create new ones, edit existing ones
 - **Tags** — Manage tags (rename, delete)
 
