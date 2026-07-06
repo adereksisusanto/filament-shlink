@@ -105,6 +105,61 @@ return [
 ];
 ```
 
+## Translations
+
+Available in **46 languages**. The plugin auto-detects the app locale and loads the corresponding translation file:
+
+| # | Locale | Language |
+|---|--------|----------|
+| 1 | `af` | Afrikaans |
+| 2 | `ar` | العربية (Arabic) |
+| 3 | `bg` | Български (Bulgarian) |
+| 4 | `bn` | বাংলা (Bengali) |
+| 5 | `ca` | Català (Catalan) |
+| 6 | `cs` | Čeština (Czech) |
+| 7 | `da` | Dansk (Danish) |
+| 8 | `de` | Deutsch (German) |
+| 9 | `el` | Ελληνικά (Greek) |
+| 10 | `en` | English |
+| 11 | `es` | Español (Spanish) |
+| 12 | `et` | Eesti (Estonian) |
+| 13 | `fa` | فارسی (Persian) |
+| 14 | `fi` | Suomi (Finnish) |
+| 15 | `fil` | Filipino |
+| 16 | `fr` | Français (French) |
+| 17 | `he` | עברית (Hebrew) |
+| 18 | `hi` | हिन्दी (Hindi) |
+| 19 | `hr` | Hrvatski (Croatian) |
+| 20 | `hu` | Magyar (Hungarian) |
+| 21 | `id` | Bahasa Indonesia (Indonesian) |
+| 22 | `it` | Italiano (Italian) |
+| 23 | `ja` | 日本語 (Japanese) |
+| 24 | `ko` | 한국어 (Korean) |
+| 25 | `lt` | Lietuvių (Lithuanian) |
+| 26 | `lv` | Latviešu (Latvian) |
+| 27 | `ms` | Bahasa Melayu (Malay) |
+| 28 | `nb` | Norsk Bokmål (Norwegian) |
+| 29 | `nl` | Nederlands (Dutch) |
+| 30 | `pl` | Polski (Polish) |
+| 31 | `pt` | Português (Portuguese) |
+| 32 | `pt_BR` | Português (Brasil) |
+| 33 | `ro` | Română (Romanian) |
+| 34 | `ru` | Русский (Russian) |
+| 35 | `sk` | Slovenčina (Slovak) |
+| 36 | `sl` | Slovenščina (Slovenian) |
+| 37 | `sr` | Srpski (Serbian) |
+| 38 | `sv` | Svenska (Swedish) |
+| 39 | `sw` | Kiswahili (Swahili) |
+| 40 | `th` | ไทย (Thai) |
+| 41 | `tr` | Türkçe (Turkish) |
+| 42 | `uk` | Українська (Ukrainian) |
+| 43 | `ur` | اردو (Urdu) |
+| 44 | `vi` | Tiếng Việt (Vietnamese) |
+| 45 | `zh_CN` | 简体中文 (Chinese Simplified) |
+| 46 | `zh_TW` | 繁體中文 (Chinese Traditional) |
+
+Translation files are located at `resources/lang/{locale}/filament-shlink.php`. To add a new language, copy the `en` file and translate the values.
+
 ## Features
 
 - **Short URLs** — List, create, and edit short URLs
