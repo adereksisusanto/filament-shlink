@@ -34,23 +34,18 @@ jobs:
         run: composer check
 
       - name: Generate release body
-        id: release_body
         run: |
-          body="## What's Changed\n\n"
+          printf "## What's Changed\n\n" > /tmp/release-body.md
           prev=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
-          while IFS= read -r line; do
-            body+="- ${line}\n"
-          done < <(git log "$prev"..HEAD --pretty=format:"%s" --no-merges)
-          echo "body<<EOF" >> $GITHUB_OUTPUT
-          printf "%b" "$body" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          git log "$prev"..HEAD --pretty=format:"- %s" --no-merges >> /tmp/release-body.md
+          printf "\n" >> /tmp/release-body.md
 
       - name: Create Release
-        uses: softprops/action-gh-release@718ea10b132b3b2eba29c1007bb80653f286566b # v3.0.1
-        with:
-          tag_name: ${{ inputs.version }}
-          name: ${{ inputs.version }}
-          body: ${{ steps.release_body.outputs.body }}
-          generate_release_notes: true
-          draft: false
-          prerelease: false
+        run: |
+          gh release create "${{ inputs.version }}" \
+            --title "${{ inputs.version }}" \
+            --notes-file /tmp/release-body.md \
+            --generate-notes \
+            --latest
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
