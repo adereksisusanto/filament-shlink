@@ -18,24 +18,22 @@ jobs:
 
       - name: Update CHANGELOG.md
         run: |
-          TAG="${{ github.event.release.tag_name }}"
-          DATE="${{ github.event.release.published_at }}"
+          TAG=$(jq -r '.release.tag_name' "$GITHUB_EVENT_PATH")
+          DATE=$(jq -r '.release.published_at' "$GITHUB_EVENT_PATH")
           DATE="${DATE%%T*}"
-          BODY="${{ github.event.release.body }}"
+          BODY=$(jq -r '.release.body' "$GITHUB_EVENT_PATH")
 
-          ENTRY="## ${TAG} - ${DATE}\n\n${BODY}\n\n"
-          echo -e "${ENTRY}" > /tmp/new_entry.md
+          printf "## %s - %s\n\n%s\n\n" "$TAG" "$DATE" "$BODY" > /tmp/new_entry.md
 
           if [ -f CHANGELOG.md ]; then
             HEADER=$(head -5 CHANGELOG.md)
             TAIL=$(tail -n +6 CHANGELOG.md)
-            echo "${HEADER}" > CHANGELOG.md
+            echo "$HEADER" > CHANGELOG.md
             echo "" >> CHANGELOG.md
             cat /tmp/new_entry.md >> CHANGELOG.md
-            echo "${TAIL}" >> CHANGELOG.md
+            echo "$TAIL" >> CHANGELOG.md
           else
-            echo "# Changelog" > CHANGELOG.md
-            echo "" >> CHANGELOG.md
+            printf "# Changelog\n\n" > CHANGELOG.md
             cat /tmp/new_entry.md >> CHANGELOG.md
           fi
 
