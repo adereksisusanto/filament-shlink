@@ -32,13 +32,43 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+### Modal Mode
+
 By default, create and edit actions navigate to dedicated pages. To use modal forms instead:
 
 ```php
 FilamentShlinkPlugin::make()->modal(true)
 ```
 
-In modal mode, the list page handles all CRUD via modals instead of separate pages.
+Configure modal appearance with named parameters using enums:
+
+```php
+use Adereksisusanto\FilamentShlink\Enums\ModalType;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\SlideOverPosition;
+use Filament\Support\Enums\Width;
+
+FilamentShlinkPlugin::make()->modal(
+    enabled: true,
+    type: ModalType::SlideOver,
+    position: SlideOverPosition::End,   // slide-over position
+    width: Width::FourExtraLarge,        // Tailwind max-width
+    alignment: Alignment::Center,        // content alignment
+)
+```
+
+Example — slide-over panel from the right:
+
+```php
+use Adereksisusanto\FilamentShlink\Enums\ModalType;
+use Filament\Support\Enums\Width;
+
+FilamentShlinkPlugin::make()->modal(
+    enabled: true,
+    type: ModalType::SlideOver,
+    width: Width::TwoExtraLarge,
+)
+```
 
 ## Configuration
 

@@ -139,12 +139,36 @@ class ListShortUrls extends ListRecords
         return FilamentShlinkPlugin::get()->isModal();
     }
 
+    protected function applyModalAppearance(Action | EditAction $action): Action | EditAction
+    {
+        $plugin = FilamentShlinkPlugin::get();
+
+        if ($plugin->getModalType() !== null) {
+            $action->slideOver();
+        }
+
+        if ($position = $plugin->getModalPosition()) {
+            $action->slideOverPosition($position);
+        }
+
+        if ($width = $plugin->getModalWidth()) {
+            $action->modalWidth($width);
+        }
+
+        if ($alignment = $plugin->getModalAlignment()) {
+            $action->modalAlignment($alignment);
+        }
+
+        return $action;
+    }
+
     protected function getCreateModalAction(): Action
     {
-        return Action::make('create')
-            ->label(__('filament-shlink::filament-shlink.create_short_url'))
-            ->icon('heroicon-o-plus')
-            ->form([
+        return $this->applyModalAppearance(
+            Action::make('create')
+                ->label(__('filament-shlink::filament-shlink.create_short_url'))
+                ->icon('heroicon-o-plus')
+                ->form([
                 TextInput::make('long_url')
                     ->label(__('filament-shlink::filament-shlink.long_url'))
                     ->required()
@@ -233,12 +257,13 @@ class ListShortUrls extends ListRecords
                         ->danger()
                         ->send();
                 }
-            });
+            }));
     }
 
-    protected function getEditModalAction(): EditAction
+    protected function getEditModalAction(): Action
     {
-        return EditAction::make()
+        return $this->applyModalAppearance(
+            EditAction::make()
             ->mutateRecordDataUsing(function (ShortUrl $record): array {
                 $identifier = ShortUrlIdentifier::fromShortCode($record->shortCode);
                 $service = app(FilamentShlink::class);
@@ -330,6 +355,6 @@ class ListShortUrls extends ListRecords
                         ->danger()
                         ->send();
                 }
-            });
+            }));
     }
 }

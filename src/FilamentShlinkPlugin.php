@@ -2,15 +2,27 @@
 
 namespace Adereksisusanto\FilamentShlink;
 
+use Adereksisusanto\FilamentShlink\Enums\ModalType;
 use Adereksisusanto\FilamentShlink\Filament\Pages\ShlinkSettings;
 use Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource;
 use Adereksisusanto\FilamentShlink\Filament\Resources\TagResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\SlideOverPosition;
+use Filament\Support\Enums\Width;
 
 class FilamentShlinkPlugin implements Plugin
 {
     protected bool $modal = false;
+
+    protected ?ModalType $modalType = null;
+
+    protected ?SlideOverPosition $modalPosition = null;
+
+    protected ?Width $modalWidth = null;
+
+    protected ?Alignment $modalAlignment = null;
 
     public function getId(): string
     {
@@ -47,9 +59,18 @@ class FilamentShlinkPlugin implements Plugin
         return $plugin;
     }
 
-    public function modal(bool $modal = true): static
-    {
-        $this->modal = $modal;
+    public function modal(
+        bool $enabled = true,
+        ?ModalType $type = null,
+        ?SlideOverPosition $position = null,
+        ?Width $width = null,
+        ?Alignment $alignment = null,
+    ): static {
+        $this->modal = $enabled;
+        $this->modalType = $type;
+        $this->modalPosition = $position;
+        $this->modalWidth = $width;
+        $this->modalAlignment = $alignment;
 
         return $this;
     }
@@ -57,5 +78,25 @@ class FilamentShlinkPlugin implements Plugin
     public function isModal(): bool
     {
         return $this->modal;
+    }
+
+    public function getModalType(): ?ModalType
+    {
+        return $this->modalType;
+    }
+
+    public function getModalPosition(): ?SlideOverPosition
+    {
+        return $this->modalPosition;
+    }
+
+    public function getModalWidth(): ?Width
+    {
+        return $this->modalWidth;
+    }
+
+    public function getModalAlignment(): ?Alignment
+    {
+        return $this->modalAlignment;
     }
 }

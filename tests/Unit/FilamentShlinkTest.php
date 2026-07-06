@@ -1,7 +1,11 @@
 <?php
 
+use Adereksisusanto\FilamentShlink\Enums\ModalType;
 use Adereksisusanto\FilamentShlink\FilamentShlink;
 use Adereksisusanto\FilamentShlink\FilamentShlinkPlugin;
+use Filament\Support\Enums\Alignment;
+use Filament\Support\Enums\SlideOverPosition;
+use Filament\Support\Enums\Width;
 use Shlinkio\Shlink\SDK\ShlinkClient;
 
 beforeEach(function () {
@@ -95,4 +99,50 @@ it('plugin modal returns self for chaining', function () {
     $result = $plugin->modal(true);
 
     expect($result)->toBe($plugin);
+});
+
+it('plugin modal type defaults to null', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true);
+
+    expect($plugin->getModalType())->toBeNull();
+});
+
+it('plugin modal type can be set to slideOver', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true, type: ModalType::SlideOver);
+
+    expect($plugin->getModalType())->toBe(ModalType::SlideOver);
+});
+
+it('plugin modal position can be set', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true, position: SlideOverPosition::Start);
+
+    expect($plugin->getModalPosition())->toBe(SlideOverPosition::Start);
+});
+
+it('plugin modal width can be set', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true, width: Width::TwoExtraLarge);
+
+    expect($plugin->getModalWidth())->toBe(Width::TwoExtraLarge);
+});
+
+it('plugin modal alignment can be set', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true, alignment: Alignment::Center);
+
+    expect($plugin->getModalAlignment())->toBe(Alignment::Center);
+});
+
+it('plugin modal accepts all parameters at once', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(
+        enabled: true,
+        type: ModalType::SlideOver,
+        position: SlideOverPosition::End,
+        width: Width::FourExtraLarge,
+        alignment: Alignment::Center,
+    );
+
+    expect($plugin->isModal())->toBeTrue()
+        ->and($plugin->getModalType())->toBe(ModalType::SlideOver)
+        ->and($plugin->getModalPosition())->toBe(SlideOverPosition::End)
+        ->and($plugin->getModalWidth())->toBe(Width::FourExtraLarge)
+        ->and($plugin->getModalAlignment())->toBe(Alignment::Center);
 });
