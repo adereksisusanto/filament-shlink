@@ -12,6 +12,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Collection;
 use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlIdentifier;
 
 class ListShortUrls extends ListRecords
@@ -31,7 +32,7 @@ class ListShortUrls extends ListRecords
     public function table(Table $table): Table
     {
         return $table
-            ->records(fn (): \Illuminate\Support\Collection => $this->getTableRecords())
+            ->records(fn (): Collection => $this->getTableRecords())
             ->columns([
                 TextColumn::make('shortUrl')
                     ->label(__('filament-shlink::filament-shlink.short_url'))
@@ -78,7 +79,7 @@ class ListShortUrls extends ListRecords
             ]);
     }
 
-    public function getTableRecords(): \Illuminate\Support\Collection
+    public function getTableRecords(): Collection
     {
         try {
             $service = app(FilamentShlink::class);

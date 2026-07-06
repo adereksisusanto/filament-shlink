@@ -9,9 +9,13 @@ use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlIdentifier;
 class ShortUrl extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $table = 'shlink_short_urls';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     public function __construct(array $attributes = [])
@@ -21,7 +25,7 @@ class ShortUrl extends Model
 
     public static function fromShlinkShortUrl(ShlinkShortUrl $url): self
     {
-        $model = new static();
+        $model = new static;
         $model->forceFill([
             'shortCode' => $url->shortCode,
             'shortUrl' => $url->shortUrl,

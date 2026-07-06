@@ -8,9 +8,13 @@ use Shlinkio\Shlink\SDK\Tags\Model\TagWithStats;
 class Tag extends Model
 {
     public $timestamps = false;
+
     protected $guarded = [];
+
     protected $table = 'shlink_tags';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 
     public function __construct(array $attributes = [])
@@ -27,7 +31,7 @@ class Tag extends Model
     {
         $stats = TagStats::fromShlinkTagWithStats($tagStats);
 
-        $model = new static();
+        $model = new static;
         $model->forceFill([
             'name' => $tagStats->tag,
             'shortUrlsCount' => $stats->shortUrlsCount,

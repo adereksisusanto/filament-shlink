@@ -4,10 +4,6 @@ namespace Adereksisusanto\FilamentShlink;
 
 use Adereksisusanto\FilamentShlink\Commands\FilamentShlinkCommand;
 use Adereksisusanto\FilamentShlink\Testing\TestsFilamentShlink;
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
-use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
 use Illuminate\Filesystem\Filesystem;
@@ -56,7 +52,7 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         $this->app->singleton(FilamentShlink::class, function () {
-            return new FilamentShlink();
+            return new FilamentShlink;
         });
     }
 

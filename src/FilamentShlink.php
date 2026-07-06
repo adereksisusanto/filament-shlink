@@ -7,6 +7,7 @@ use GuzzleHttp\Psr7\HttpFactory;
 use Shlinkio\Shlink\SDK\Builder\ShlinkClientBuilder;
 use Shlinkio\Shlink\SDK\Config\ShlinkConfig;
 use Shlinkio\Shlink\SDK\Domains\Model\DomainRedirectsConfig;
+use Shlinkio\Shlink\SDK\ShlinkClient;
 use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlCreation;
 use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlEdition;
 use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlIdentifier;
@@ -32,15 +33,15 @@ class FilamentShlink
     {
         $this->client = null;
 
-        $guzzle = new GuzzleClient();
-        $httpFactory = new HttpFactory();
+        $guzzle = new GuzzleClient;
+        $httpFactory = new HttpFactory;
         $builder = new ShlinkClientBuilder($guzzle, $httpFactory, $httpFactory);
         $config = ShlinkConfig::fromBaseUrlAndApiKey(
             baseUrl: $serverUrl,
             apiKey: $apiKey,
         );
 
-        $this->client = new \Shlinkio\Shlink\SDK\ShlinkClient(
+        $this->client = new ShlinkClient(
             $builder->buildShortUrlsClient($config),
             $builder->buildVisitsClient($config),
             $builder->buildTagsClient($config),
@@ -134,15 +135,15 @@ class FilamentShlink
 
     private function buildClient(): mixed
     {
-        $guzzle = new GuzzleClient();
-        $httpFactory = new HttpFactory();
+        $guzzle = new GuzzleClient;
+        $httpFactory = new HttpFactory;
         $builder = new ShlinkClientBuilder($guzzle, $httpFactory, $httpFactory);
         $config = ShlinkConfig::fromBaseUrlAndApiKey(
             baseUrl: config('filament-shlink.server_url'),
             apiKey: config('filament-shlink.api_key'),
         );
 
-        return new \Shlinkio\Shlink\SDK\ShlinkClient(
+        return new ShlinkClient(
             $builder->buildShortUrlsClient($config),
             $builder->buildVisitsClient($config),
             $builder->buildTagsClient($config),

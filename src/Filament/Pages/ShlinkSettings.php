@@ -4,10 +4,10 @@ namespace Adereksisusanto\FilamentShlink\Filament\Pages;
 
 use Adereksisusanto\FilamentShlink\FilamentShlink;
 use Filament\Actions\Action;
-use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ShlinkSettings extends Page

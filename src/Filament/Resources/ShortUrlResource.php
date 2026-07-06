@@ -3,6 +3,7 @@
 namespace Adereksisusanto\FilamentShlink\Filament\Resources;
 
 use Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource\Pages;
+use Adereksisusanto\FilamentShlink\Models\ShortUrl;
 use Filament\Resources\Resource;
 
 class ShortUrlResource extends Resource
@@ -15,7 +16,7 @@ class ShortUrlResource extends Resource
 
     public static function getModel(): string
     {
-        return \Adereksisusanto\FilamentShlink\Models\ShortUrl::class;
+        return ShortUrl::class;
     }
 
     public static function getNavigationLabel(): string

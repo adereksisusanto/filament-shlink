@@ -3,6 +3,7 @@
 namespace Adereksisusanto\FilamentShlink\Filament\Resources;
 
 use Adereksisusanto\FilamentShlink\Filament\Resources\TagResource\Pages;
+use Adereksisusanto\FilamentShlink\Models\Tag;
 use Filament\Resources\Resource;
 
 class TagResource extends Resource
@@ -15,7 +16,7 @@ class TagResource extends Resource
 
     public static function getModel(): string
     {
-        return \Adereksisusanto\FilamentShlink\Models\Tag::class;
+        return Tag::class;
     }
 
     public static function getNavigationLabel(): string
