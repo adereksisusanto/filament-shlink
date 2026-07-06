@@ -16,9 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      # persist-credentials: true so git-auto-commit-action below can push
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0  # zizmor: ignore[artipacked]
         with:
-          persist-credentials: false
           fetch-depth: 0
 
       - name: Setup PHP
@@ -39,6 +39,31 @@ jobs:
           prev=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
           git log "$prev"..HEAD --pretty=format:"- %s" --no-merges >> /tmp/release-body.md
           printf "\n" >> /tmp/release-body.md
+
+      - name: Update CHANGELOG.md
+        run: |
+          TAG="$VERSION"
+          DATE=$(date -u +%Y-%m-%d)
+          printf "## %s - %s\n\n" "$TAG" "$DATE" > /tmp/changelog-entry.md
+          cat /tmp/release-body.md >> /tmp/changelog-entry.md
+
+          if [ -f CHANGELOG.md ]; then
+            HEADER=$(head -5 CHANGELOG.md)
+            TAIL=$(tail -n +6 CHANGELOG.md)
+            echo "$HEADER" > CHANGELOG.md
+            echo "" >> CHANGELOG.md
+            cat /tmp/changelog-entry.md >> CHANGELOG.md
+            echo "$TAIL" >> CHANGELOG.md
+          else
+            printf "# Changelog\n\n" > CHANGELOG.md
+            cat /tmp/changelog-entry.md >> CHANGELOG.md
+          fi
+        env:
+          VERSION: ${{ inputs.version }}
+
+      - uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          commit_message: "chore: update CHANGELOG.md for ${{ inputs.version }}"
 
       - name: Create Release
         run: |
