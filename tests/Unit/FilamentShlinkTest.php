@@ -23,6 +23,7 @@ function clearConfig(): void
 {
     config()->set('filament-shlink.server_url', '');
     config()->set('filament-shlink.api_key', '');
+    config()->set('filament-shlink.multi_client', false);
 }
 
 it('is not configured when config is empty', function () {
@@ -150,23 +151,43 @@ it('plugin modal accepts all parameters at once', function () {
 });
 
 it('plugin table prefix defaults to fs', function () {
-    $plugin = FilamentShlinkPlugin::make();
+    $plugin = FilamentShlinkPlugin::make()->multiClient();
 
     expect($plugin->getTablePrefix())->toBe('fs');
 });
 
-it('plugin table prefix can be changed', function () {
-    $plugin = FilamentShlinkPlugin::make()->tablePrefix('custom');
+it('plugin table prefix can be changed via multiClient', function () {
+    $plugin = FilamentShlinkPlugin::make()->multiClient(tablePrefix: 'custom');
 
     expect($plugin->getTablePrefix())->toBe('custom');
 });
 
-it('plugin register sets table prefix on ShlinkConfig model', function () {
+it('plugin multiClient defaults to false', function () {
+    $plugin = FilamentShlinkPlugin::make();
+
+    expect($plugin->isMultiClient())->toBeFalse();
+});
+
+it('plugin multiClient can be enabled', function () {
+    $plugin = FilamentShlinkPlugin::make()->multiClient();
+
+    expect($plugin->isMultiClient())->toBeTrue();
+});
+
+it('plugin multiClient returns self for chaining', function () {
+    $plugin = FilamentShlinkPlugin::make();
+
+    $result = $plugin->multiClient();
+
+    expect($result)->toBe($plugin);
+});
+
+it('plugin register sets table prefix on ShlinkConfig model when multiClient is enabled', function () {
     $panel = Mockery::mock(Panel::class);
     $panel->shouldReceive('resources')->andReturnSelf();
     $panel->shouldReceive('pages')->andReturnSelf();
 
-    FilamentShlinkPlugin::make()->tablePrefix('test_prefix')->register($panel);
+    FilamentShlinkPlugin::make()->multiClient(tablePrefix: 'test_prefix')->register($panel);
 
     expect(ShlinkConfig::getTablePrefix())->toBe('test_prefix');
 });

@@ -25,6 +25,8 @@ class FilamentShlinkPlugin implements Plugin
 
     protected ?Alignment $modalAlignment = null;
 
+    protected bool $multiClient = false;
+
     protected string $tablePrefix = 'fs';
 
     public function getId(): string
@@ -34,8 +36,12 @@ class FilamentShlinkPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        ShlinkConfig::setTablePrefix($this->tablePrefix);
-        config(['filament-shlink.table_prefix' => $this->tablePrefix]);
+        config(['filament-shlink.multi_client' => $this->multiClient]);
+
+        if ($this->multiClient) {
+            ShlinkConfig::setTablePrefix($this->tablePrefix);
+            config(['filament-shlink.table_prefix' => $this->tablePrefix]);
+        }
 
         $panel
             ->resources([
@@ -106,11 +112,17 @@ class FilamentShlinkPlugin implements Plugin
         return $this->modalAlignment;
     }
 
-    public function tablePrefix(string $prefix): static
+    public function multiClient(bool $enabled = true, string $tablePrefix = 'fs'): static
     {
-        $this->tablePrefix = $prefix;
+        $this->multiClient = $enabled;
+        $this->tablePrefix = $tablePrefix;
 
         return $this;
+    }
+
+    public function isMultiClient(): bool
+    {
+        return $this->multiClient;
     }
 
     public function getTablePrefix(): string

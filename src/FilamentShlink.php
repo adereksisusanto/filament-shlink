@@ -57,7 +57,7 @@ class FilamentShlink
 
     public function isConfigured(): bool
     {
-        if (auth()->check()) {
+        if (config('filament-shlink.multi_client') && auth()->check()) {
             return ShlinkConfig::where('user_id', auth()->id())->exists();
         }
 
@@ -144,7 +144,11 @@ class FilamentShlink
 
     private function resolveClientKey(): string
     {
-        return auth()->check() ? 'user_' . auth()->id() : 'guest';
+        if (config('filament-shlink.multi_client') && auth()->check()) {
+            return 'user_' . auth()->id();
+        }
+
+        return 'default';
     }
 
     private function buildClient(): mixed
@@ -166,7 +170,7 @@ class FilamentShlink
 
     private function resolveConfig(): ShlinkConfigInterface
     {
-        if (auth()->check()) {
+        if (config('filament-shlink.multi_client') && auth()->check()) {
             $userConfig = ShlinkConfig::where('user_id', auth()->id())->first();
 
             if ($userConfig) {

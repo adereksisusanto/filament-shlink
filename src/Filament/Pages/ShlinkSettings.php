@@ -31,7 +31,7 @@ class ShlinkSettings extends Page
         $serverUrl = config('filament-shlink.server_url');
         $apiKey = config('filament-shlink.api_key');
 
-        if (auth()->check()) {
+        if (config('filament-shlink.multi_client') && auth()->check()) {
             $config = ShlinkConfig::where('user_id', auth()->id())->first();
 
             if ($config) {
@@ -87,7 +87,7 @@ class ShlinkSettings extends Page
             return;
         }
 
-        if (auth()->check()) {
+        if (config('filament-shlink.multi_client') && auth()->check()) {
             ShlinkConfig::updateOrCreate(
                 ['user_id' => auth()->id()],
                 [

@@ -57,15 +57,28 @@ FilamentShlinkPlugin::make()->modal(
 )
 ```
 
-### Table Prefix
+### Multi-Client (Per-User Config)
 
-The plugin stores per-user config in a database table. The default table name is `fs_configs`. You can change the prefix:
+Enable per-user Shlink connections. Each authenticated user can configure their own Shlink server via **Shlink Settings**:
 
 ```php
-FilamentShlinkPlugin::make()->tablePrefix('myapp')
+FilamentShlinkPlugin::make()->multiClient()
 ```
 
-This uses `myapp_configs` as the table name.
+Customize the database table prefix:
+
+```php
+FilamentShlinkPlugin::make()->multiClient(tablePrefix: 'myapp')
+```
+
+This creates the `myapp_configs` table (default `fs_configs`). When enabled, publish & run the migration:
+
+```bash
+php artisan vendor:publish --tag="filament-shlink-migrations"
+php artisan migrate
+```
+
+Per-user data is scoped per user. Falls back to global `.env` config if user has no saved config.
 
 ## Configuration
 
@@ -77,17 +90,6 @@ SHLINK_API_KEY=your-api-key
 ```
 
 Or configure them via **Shlink Settings** page in the Filament admin panel after registration.
-
-### Per-User Config
-
-Each authenticated user can have their own Shlink connection. Publish & run the migration:
-
-```bash
-php artisan vendor:publish --tag="filament-shlink-migrations"
-php artisan migrate
-```
-
-This creates the `{prefix}_configs` table (default `fs_configs`). Each user configures their own Shlink server via **Shlink Settings**. All API data (short URLs, tags, visits) is scoped per user. Falls back to global `.env` config if user has no saved config.
 
 Published config (`config/filament-shlink.php`):
 
@@ -105,7 +107,7 @@ return [
 - **Tags** — List, rename, and delete tags
 - **Dashboard Widget** — Visits overview widget showing total visits, short URLs, and tags
 - **Settings** — Configure server connection from the admin panel
-- **Per-User Config** — Each user configures their own Shlink connection (stored in `{prefix}_configs`)
+- **Multi-Client** — Per-user Shlink connections (stored in `{prefix}_configs`)
 
 ## Usage
 
@@ -115,7 +117,7 @@ Once registered, the plugin adds the following to your Filament panel:
 - **Short URLs** — View all short URLs, create new ones, edit existing ones
 - **Tags** — Manage tags (rename, delete)
 
-> Shlink URLs, tags, and visits are fetched directly from the Shlink API — no local tables for those. Per-user connection settings are stored in the `{prefix}_configs` table.
+> Shlink URLs, tags, and visits are fetched directly from the Shlink API — no local tables for those. When `multiClient()` is enabled, per-user connection settings are stored in the `{prefix}_configs` table.
 
 ## Requirements
 
