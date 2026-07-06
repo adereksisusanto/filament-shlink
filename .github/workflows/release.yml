@@ -48,8 +48,8 @@ jobs:
           cat /tmp/release-body.md >> /tmp/changelog-entry.md
 
           if [ -f CHANGELOG.md ]; then
-            HEADER=$(head -5 CHANGELOG.md)
-            TAIL=$(tail -n +6 CHANGELOG.md)
+            HEADER=$(head -3 CHANGELOG.md)
+            TAIL=$(tail -n +4 CHANGELOG.md)
             echo "$HEADER" > CHANGELOG.md
             echo "" >> CHANGELOG.md
             cat /tmp/changelog-entry.md >> CHANGELOG.md
