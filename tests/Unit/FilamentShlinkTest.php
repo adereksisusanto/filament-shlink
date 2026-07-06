@@ -1,6 +1,7 @@
 <?php
 
 use Adereksisusanto\FilamentShlink\FilamentShlink;
+use Adereksisusanto\FilamentShlink\FilamentShlinkPlugin;
 use Shlinkio\Shlink\SDK\ShlinkClient;
 
 beforeEach(function () {
@@ -66,4 +67,32 @@ it('setConfig replaces the previous client', function () {
     $client2 = $this->service->client();
 
     expect($client1)->not->toBe($client2);
+});
+
+it('plugin modal defaults to false', function () {
+    $plugin = FilamentShlinkPlugin::make();
+
+    expect($plugin->isModal())->toBeFalse();
+});
+
+it('plugin modal can be set to true', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true);
+
+    expect($plugin->isModal())->toBeTrue();
+});
+
+it('plugin modal can be toggled off', function () {
+    $plugin = FilamentShlinkPlugin::make()->modal(true);
+    expect($plugin->isModal())->toBeTrue();
+
+    $plugin->modal(false);
+    expect($plugin->isModal())->toBeFalse();
+});
+
+it('plugin modal returns self for chaining', function () {
+    $plugin = FilamentShlinkPlugin::make();
+
+    $result = $plugin->modal(true);
+
+    expect($result)->toBe($plugin);
 });

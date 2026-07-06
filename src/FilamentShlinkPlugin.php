@@ -10,6 +10,8 @@ use Filament\Panel;
 
 class FilamentShlinkPlugin implements Plugin
 {
+    protected bool $modal = false;
+
     public function getId(): string
     {
         return 'filament-shlink';
@@ -43,5 +45,17 @@ class FilamentShlinkPlugin implements Plugin
         $plugin = filament(app(static::class)->getId());
 
         return $plugin;
+    }
+
+    public function modal(bool $modal = true): static
+    {
+        $this->modal = $modal;
+
+        return $this;
+    }
+
+    public function isModal(): bool
+    {
+        return $this->modal;
     }
 }

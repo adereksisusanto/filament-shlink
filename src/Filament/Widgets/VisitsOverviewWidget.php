@@ -26,11 +26,11 @@ class VisitsOverviewWidget extends StatsOverviewWidget
             return [
                 Stat::make(
                     __('filament-shlink::filament-shlink.visits_overview.total_visits'),
-                    number_format($overview->total),
+                    number_format(count($overview)),
                 ),
                 Stat::make(
                     __('filament-shlink::filament-shlink.visits_overview.total_short_urls'),
-                    number_format($shortUrls->pagination->totalItems),
+                    number_format(count($shortUrls)),
                 ),
                 Stat::make(
                     __('filament-shlink::filament-shlink.visits_overview.total_tags'),

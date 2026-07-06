@@ -32,6 +32,14 @@ public function panel(Panel $panel): Panel
 }
 ```
 
+By default, create and edit actions navigate to dedicated pages. To use modal forms instead:
+
+```php
+FilamentShlinkPlugin::make()->modal(true)
+```
+
+In modal mode, the list page handles all CRUD via modals instead of separate pages.
+
 ## Configuration
 
 Set your Shlink server URL and API key in `.env`:
