@@ -22,6 +22,10 @@ class ListShortUrls extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            Action::make('create')
+                ->label(__('filament-shlink::filament-shlink.create_short_url'))
+                ->icon('heroicon-o-plus')
+                ->url(ShortUrlResource::getUrl('create')),
             Action::make('refresh')
                 ->label(__('filament-shlink::filament-shlink.refresh'))
                 ->icon('heroicon-o-arrow-path')
@@ -56,7 +60,7 @@ class ListShortUrls extends ListRecords
                     ->label(__('filament-shlink::filament-shlink.date_created'))
                     ->dateTime(),
             ])
-            ->actions([
+            ->recordActions([
                 Action::make('open')
                     ->label(__('filament-shlink::filament-shlink.open'))
                     ->icon('heroicon-o-arrow-top-right-on-square')

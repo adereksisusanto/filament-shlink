@@ -2,6 +2,7 @@
 
 return [
     'short_urls' => 'Short URLs',
+    'create_short_url' => 'Create Short URL',
     'short_url' => 'Short URL',
     'short_url_created' => 'Short URL created successfully.',
     'short_url_updated' => 'Short URL updated successfully.',

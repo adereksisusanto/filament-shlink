@@ -43,7 +43,7 @@ class ListTags extends ListRecords
                 TextColumn::make('totalVisits')
                     ->label(__('filament-shlink::filament-shlink.visits')),
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make()
                     ->form([
                         TextInput::make('new_name')

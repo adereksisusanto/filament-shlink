@@ -2,6 +2,7 @@
 
 return [
     'short_urls' => 'URL Pendek',
+    'create_short_url' => 'Buat URL Pendek',
     'short_url' => 'URL Pendek',
     'short_url_created' => 'URL pendek berhasil dibuat.',
     'short_url_updated' => 'URL pendek berhasil diperbarui.',
