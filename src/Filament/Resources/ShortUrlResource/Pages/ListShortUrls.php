@@ -47,7 +47,8 @@ class ListShortUrls extends ListRecords
         if ($this->isModalMode()) {
             array_unshift($actions, $this->getCreateModalAction());
         } else {
-            array_unshift($actions,
+            array_unshift(
+                $actions,
                 Action::make('create')
                     ->label(__('filament-shlink::filament-shlink.create_short_url'))
                     ->icon('heroicon-o-plus')
