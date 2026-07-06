@@ -1,8 +1,8 @@
 # Filament Shlink
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/adereksisusanto/filament-shlink.svg?style=flat-square)](https://packagist.org/packages/adereksisusanto/filament-shlink)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/adereksisusanto/filament-shlink/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/adereksisusanto/filament-shlink/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/adereksisusanto/filament-shlink/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/adereksisusanto/filament-shlink/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+[![tests](https://github.com/adereksisusanto/filament-shlink/actions/workflows/tests.yml/badge.svg)](https://github.com/adereksisusanto/filament-shlink/actions/workflows/tests.yml)
+[![fix-code-style](https://github.com/adereksisusanto/filament-shlink/actions/workflows/fix-code-style.yml/badge.svg)](https://github.com/adereksisusanto/filament-shlink/actions/workflows/fix-code-style.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/adereksisusanto/filament-shlink.svg?style=flat-square)](https://packagist.org/packages/adereksisusanto/filament-shlink)
 
 Filament panel integration for [Shlink](https://shlink.io), a self-hosted URL shortener. Manage short URLs and tags directly from your Filament panel.
