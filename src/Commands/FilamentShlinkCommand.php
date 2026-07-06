@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Adereksisusanto\FilamentShlink\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FilamentShlinkCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-shlink';
 
     public $description = 'My command';
 
