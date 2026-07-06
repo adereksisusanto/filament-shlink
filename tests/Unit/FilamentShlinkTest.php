@@ -3,6 +3,8 @@
 use Adereksisusanto\FilamentShlink\Enums\ModalType;
 use Adereksisusanto\FilamentShlink\FilamentShlink;
 use Adereksisusanto\FilamentShlink\FilamentShlinkPlugin;
+use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
+use Filament\Panel;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\SlideOverPosition;
 use Filament\Support\Enums\Width;
@@ -160,11 +162,11 @@ it('plugin table prefix can be changed', function () {
 });
 
 it('plugin register sets table prefix on ShlinkConfig model', function () {
-    $panel = Mockery::mock(\Filament\Panel::class);
+    $panel = Mockery::mock(Panel::class);
     $panel->shouldReceive('resources')->andReturnSelf();
     $panel->shouldReceive('pages')->andReturnSelf();
 
     FilamentShlinkPlugin::make()->tablePrefix('test_prefix')->register($panel);
 
-    expect(\Adereksisusanto\FilamentShlink\Models\ShlinkConfig::getTablePrefix())->toBe('test_prefix');
+    expect(ShlinkConfig::getTablePrefix())->toBe('test_prefix');
 });

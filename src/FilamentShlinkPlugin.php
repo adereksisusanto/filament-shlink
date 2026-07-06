@@ -6,13 +6,12 @@ use Adereksisusanto\FilamentShlink\Enums\ModalType;
 use Adereksisusanto\FilamentShlink\Filament\Pages\ShlinkSettings;
 use Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource;
 use Adereksisusanto\FilamentShlink\Filament\Resources\TagResource;
+use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\SlideOverPosition;
 use Filament\Support\Enums\Width;
-
-use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
 
 class FilamentShlinkPlugin implements Plugin
 {
