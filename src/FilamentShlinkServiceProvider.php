@@ -2,6 +2,8 @@
 
 namespace Adereksisusanto\FilamentShlink;
 
+use Adereksisusanto\FilamentShlink\Commands\FilamentShlinkCommand;
+use Adereksisusanto\FilamentShlink\Testing\TestsFilamentShlink;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -13,8 +15,6 @@ use Livewire\Features\SupportTesting\Testable;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Adereksisusanto\FilamentShlink\Commands\FilamentShlinkCommand;
-use Adereksisusanto\FilamentShlink\Testing\TestsFilamentShlink;
 
 class FilamentShlinkServiceProvider extends PackageServiceProvider
 {
