@@ -15,7 +15,7 @@ class TagStats
     {
         return new self(
             shortUrlsCount: $tagStats->shortUrlsCount,
-            totalVisits: $tagStats->totalVisits,
+            totalVisits: $tagStats->visitsSummary->total,
         );
     }
 }

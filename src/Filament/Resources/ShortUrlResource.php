@@ -10,6 +10,11 @@ class ShortUrlResource extends Resource
 {
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-link';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament-shlink::filament-shlink.navigation_group');
+    }
+
     protected static ?string $slug = 'shlink-short-urls';
 
     protected static bool $isGloballySearchable = false;

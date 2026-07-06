@@ -14,6 +14,11 @@ class ShlinkSettings extends Page
 {
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-cog-6-tooth';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament-shlink::filament-shlink.navigation_group');
+    }
+
     protected string $view = 'filament-shlink::settings';
 
     protected static ?string $slug = 'shlink-settings';

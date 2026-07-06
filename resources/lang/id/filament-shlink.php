@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'navigation_group' => 'Shlink',
     'short_urls' => 'URL Pendek',
     'create_short_url' => 'Buat URL Pendek',
     'short_url' => 'URL Pendek',

@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'navigation_group' => 'Shlink',
     'short_urls' => 'Short URLs',
     'create_short_url' => 'Create Short URL',
     'short_url' => 'Short URL',

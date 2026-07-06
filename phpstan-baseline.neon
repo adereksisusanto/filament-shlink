@@ -53,9 +53,3 @@ parameters:
 			identifier: new.static
 			count: 1
 			path: src/Models/Tag.php
-
-		-
-			message: '#^Access to an undefined property Shlinkio\\Shlink\\SDK\\Tags\\Model\\TagWithStats\:\:\$totalVisits\.$#'
-			identifier: property.notFound
-			count: 1
-			path: src/Models/TagStats.php

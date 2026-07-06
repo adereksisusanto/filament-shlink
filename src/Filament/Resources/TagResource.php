@@ -10,6 +10,11 @@ class TagResource extends Resource
 {
     protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-tag';
 
+    public static function getNavigationGroup(): ?string
+    {
+        return __('filament-shlink::filament-shlink.navigation_group');
+    }
+
     protected static ?string $slug = 'shlink-tags';
 
     protected static bool $isGloballySearchable = false;

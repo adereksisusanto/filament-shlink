@@ -67,11 +67,24 @@ Once registered, the plugin adds two menu items to your Filament panel:
 
 > All data is fetched directly from the Shlink API — no local database tables are used.
 
+## Requirements
+
+- PHP ^8.3
+- Filament ^5.0
+- Laravel ^11.0|^12.0
+
 ## Testing
 
 ```bash
 composer test
 ```
+
+The test suite covers:
+
+- **Models** — ShortUrl, Tag, and TagStats creation from Shlink SDK DTOs
+- **Service** — Configuration state, connection setup via `setConfig()`
+- **Service Provider** — Singleton registration, config/translation/view loading
+- **Architecture** — Debug functions (`dd`, `dump`, `ray`) are not used anywhere in the source
 
 ## Changelog
 
