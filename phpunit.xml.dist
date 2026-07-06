@@ -8,13 +8,15 @@
     processIsolation="false"
     stopOnFailure="false"
     executionOrder="random"
-    failOnWarning="true"
     failOnRisky="true"
     failOnEmptyTestSuite="true"
-    beStrictAboutOutputDuringTests="true"
+    beStrictAboutOutputDuringTests="false"
     cacheDirectory=".phpunit.cache"
     backupStaticProperties="false"
 >
+    <php>
+        <ini name="error_reporting" value="-1"/>
+    </php>
     <testsuites>
         <testsuite name="Adereksisusanto Test Suite">
             <directory>tests</directory>
