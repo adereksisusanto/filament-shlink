@@ -51,24 +51,21 @@ use Filament\Support\Enums\Width;
 FilamentShlinkPlugin::make()->modal(
     enabled: true,
     type: ModalType::SlideOver,
-    position: SlideOverPosition::End,   // slide-over position
-    width: Width::FourExtraLarge,        // Tailwind max-width
-    alignment: Alignment::Center,        // content alignment
+    position: SlideOverPosition::End,
+    width: Width::FourExtraLarge,
+    alignment: Alignment::Center,
 )
 ```
 
-Example — slide-over panel from the right:
+### Table Prefix
+
+The plugin stores per-user config in a database table. The default table name is `fs_configs`. You can change the prefix:
 
 ```php
-use Adereksisusanto\FilamentShlink\Enums\ModalType;
-use Filament\Support\Enums\Width;
-
-FilamentShlinkPlugin::make()->modal(
-    enabled: true,
-    type: ModalType::SlideOver,
-    width: Width::TwoExtraLarge,
-)
+FilamentShlinkPlugin::make()->tablePrefix('myapp')
 ```
+
+This uses `myapp_configs` as the table name.
 
 ## Configuration
 
@@ -81,12 +78,24 @@ SHLINK_API_KEY=your-api-key
 
 Or configure them via **Shlink Settings** page in the Filament admin panel after registration.
 
+### Per-User Config
+
+Each authenticated user can have their own Shlink connection. Publish & run the migration:
+
+```bash
+php artisan vendor:publish --tag="filament-shlink-migrations"
+php artisan migrate
+```
+
+This creates the `{prefix}_configs` table (default `fs_configs`). Each user configures their own Shlink server via **Shlink Settings**. All API data (short URLs, tags, visits) is scoped per user. Falls back to global `.env` config if user has no saved config.
+
 Published config (`config/filament-shlink.php`):
 
 ```php
 return [
     'server_url' => env('SHLINK_SERVER_URL', ''),
     'api_key' => env('SHLINK_API_KEY', ''),
+    'table_prefix' => 'fs',
 ];
 ```
 
@@ -96,6 +105,7 @@ return [
 - **Tags** — List, rename, and delete tags
 - **Dashboard Widget** — Visits overview widget showing total visits, short URLs, and tags
 - **Settings** — Configure server connection from the admin panel
+- **Per-User Config** — Each user configures their own Shlink connection (stored in `{prefix}_configs`)
 
 ## Usage
 
@@ -105,7 +115,7 @@ Once registered, the plugin adds the following to your Filament panel:
 - **Short URLs** — View all short URLs, create new ones, edit existing ones
 - **Tags** — Manage tags (rename, delete)
 
-> All data is fetched directly from the Shlink API — no local database tables are used.
+> Shlink URLs, tags, and visits are fetched directly from the Shlink API — no local tables for those. Per-user connection settings are stored in the `{prefix}_configs` table.
 
 ## Requirements
 

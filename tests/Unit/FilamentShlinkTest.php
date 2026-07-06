@@ -146,3 +146,25 @@ it('plugin modal accepts all parameters at once', function () {
         ->and($plugin->getModalWidth())->toBe(Width::FourExtraLarge)
         ->and($plugin->getModalAlignment())->toBe(Alignment::Center);
 });
+
+it('plugin table prefix defaults to fs', function () {
+    $plugin = FilamentShlinkPlugin::make();
+
+    expect($plugin->getTablePrefix())->toBe('fs');
+});
+
+it('plugin table prefix can be changed', function () {
+    $plugin = FilamentShlinkPlugin::make()->tablePrefix('custom');
+
+    expect($plugin->getTablePrefix())->toBe('custom');
+});
+
+it('plugin register sets table prefix on ShlinkConfig model', function () {
+    $panel = Mockery::mock(\Filament\Panel::class);
+    $panel->shouldReceive('resources')->andReturnSelf();
+    $panel->shouldReceive('pages')->andReturnSelf();
+
+    FilamentShlinkPlugin::make()->tablePrefix('test_prefix')->register($panel);
+
+    expect(\Adereksisusanto\FilamentShlink\Models\ShlinkConfig::getTablePrefix())->toBe('test_prefix');
+});

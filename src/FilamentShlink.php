@@ -2,10 +2,12 @@
 
 namespace Adereksisusanto\FilamentShlink;
 
+use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Psr7\HttpFactory;
 use Shlinkio\Shlink\SDK\Builder\ShlinkClientBuilder;
-use Shlinkio\Shlink\SDK\Config\ShlinkConfig;
+use Shlinkio\Shlink\SDK\Config\ShlinkConfig as ShlinkSdkConfig;
+use Shlinkio\Shlink\SDK\Config\ShlinkConfigInterface;
 use Shlinkio\Shlink\SDK\Domains\Model\DomainRedirectsConfig;
 use Shlinkio\Shlink\SDK\ShlinkClient;
 use Shlinkio\Shlink\SDK\ShortUrls\Model\ShortUrlCreation;
@@ -18,30 +20,33 @@ use Shlinkio\Shlink\SDK\Visits\Model\VisitsFilter;
 
 class FilamentShlink
 {
-    private mixed $client = null;
+    private array $clients = [];
 
     public function client(): mixed
     {
-        if ($this->client === null) {
-            $this->client = $this->buildClient();
+        $key = $this->resolveClientKey();
+
+        if (! isset($this->clients[$key])) {
+            $this->clients[$key] = $this->buildClient();
         }
 
-        return $this->client;
+        return $this->clients[$key];
     }
 
     public function setConfig(string $serverUrl, string $apiKey): void
     {
-        $this->client = null;
+        $key = $this->resolveClientKey();
+        $this->clients[$key] = null;
 
         $guzzle = new GuzzleClient;
         $httpFactory = new HttpFactory;
         $builder = new ShlinkClientBuilder($guzzle, $httpFactory, $httpFactory);
-        $config = ShlinkConfig::fromBaseUrlAndApiKey(
+        $config = ShlinkSdkConfig::fromBaseUrlAndApiKey(
             baseUrl: $serverUrl,
             apiKey: $apiKey,
         );
 
-        $this->client = new ShlinkClient(
+        $this->clients[$key] = new ShlinkClient(
             $builder->buildShortUrlsClient($config),
             $builder->buildVisitsClient($config),
             $builder->buildTagsClient($config),
@@ -52,6 +57,10 @@ class FilamentShlink
 
     public function isConfigured(): bool
     {
+        if (auth()->check()) {
+            return ShlinkConfig::where('user_id', auth()->id())->exists();
+        }
+
         return ! empty(config('filament-shlink.server_url')) && ! empty(config('filament-shlink.api_key'));
     }
 
@@ -133,15 +142,18 @@ class FilamentShlink
         return $this->client()->deleteShortUrlVisits($identifier);
     }
 
+    private function resolveClientKey(): string
+    {
+        return auth()->check() ? 'user_' . auth()->id() : 'guest';
+    }
+
     private function buildClient(): mixed
     {
         $guzzle = new GuzzleClient;
         $httpFactory = new HttpFactory;
         $builder = new ShlinkClientBuilder($guzzle, $httpFactory, $httpFactory);
-        $config = ShlinkConfig::fromBaseUrlAndApiKey(
-            baseUrl: config('filament-shlink.server_url'),
-            apiKey: config('filament-shlink.api_key'),
-        );
+
+        $config = $this->resolveConfig();
 
         return new ShlinkClient(
             $builder->buildShortUrlsClient($config),
@@ -149,6 +161,25 @@ class FilamentShlink
             $builder->buildTagsClient($config),
             $builder->buildDomainsClient($config),
             $builder->buildRedirectRulesClient($config),
+        );
+    }
+
+    private function resolveConfig(): ShlinkConfigInterface
+    {
+        if (auth()->check()) {
+            $userConfig = ShlinkConfig::where('user_id', auth()->id())->first();
+
+            if ($userConfig) {
+                return ShlinkSdkConfig::fromBaseUrlAndApiKey(
+                    baseUrl: $userConfig->server_url,
+                    apiKey: $userConfig->api_key,
+                );
+            }
+        }
+
+        return ShlinkSdkConfig::fromBaseUrlAndApiKey(
+            baseUrl: config('filament-shlink.server_url'),
+            apiKey: config('filament-shlink.api_key'),
         );
     }
 }

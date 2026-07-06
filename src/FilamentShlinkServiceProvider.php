@@ -116,7 +116,7 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_filament-shlink_table',
+            'create_shlink_configs_table',
         ];
     }
 }

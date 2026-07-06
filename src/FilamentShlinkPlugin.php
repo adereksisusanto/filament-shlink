@@ -12,6 +12,8 @@ use Filament\Support\Enums\Alignment;
 use Filament\Support\Enums\SlideOverPosition;
 use Filament\Support\Enums\Width;
 
+use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
+
 class FilamentShlinkPlugin implements Plugin
 {
     protected bool $modal = false;
@@ -24,6 +26,8 @@ class FilamentShlinkPlugin implements Plugin
 
     protected ?Alignment $modalAlignment = null;
 
+    protected string $tablePrefix = 'fs';
+
     public function getId(): string
     {
         return 'filament-shlink';
@@ -31,6 +35,9 @@ class FilamentShlinkPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
+        ShlinkConfig::setTablePrefix($this->tablePrefix);
+        config(['filament-shlink.table_prefix' => $this->tablePrefix]);
+
         $panel
             ->resources([
                 ShortUrlResource::class,
@@ -98,5 +105,17 @@ class FilamentShlinkPlugin implements Plugin
     public function getModalAlignment(): ?Alignment
     {
         return $this->modalAlignment;
+    }
+
+    public function tablePrefix(string $prefix): static
+    {
+        $this->tablePrefix = $prefix;
+
+        return $this;
+    }
+
+    public function getTablePrefix(): string
+    {
+        return $this->tablePrefix;
     }
 }

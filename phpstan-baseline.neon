@@ -7,6 +7,30 @@ parameters:
 			path: src/Filament/Pages/ShlinkSettings.php
 
 		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\Factory\:\:check\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: src/Filament/Pages/ShlinkSettings.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\Factory\:\:id\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: src/Filament/Pages/ShlinkSettings.php
+
+		-
+			message: '#^Call to an undefined static method Adereksisusanto\\FilamentShlink\\Models\\ShlinkConfig\:\:updateOrCreate\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/Filament/Pages/ShlinkSettings.php
+
+		-
+			message: '#^Call to an undefined static method Adereksisusanto\\FilamentShlink\\Models\\ShlinkConfig\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 1
+			path: src/Filament/Pages/ShlinkSettings.php
+
+		-
 			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Filament\\Resources\\ShortUrlResource\\Pages\\CreateShortUrl\:\:\$form\.$#'
 			identifier: property.notFound
 			count: 2
@@ -35,6 +59,24 @@ parameters:
 			identifier: property.notFound
 			count: 2
 			path: src/Filament/Resources/TagResource/Pages/ListTags.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\Factory\:\:check\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: src/FilamentShlink.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Contracts\\Auth\\Factory\:\:id\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: src/FilamentShlink.php
+
+		-
+			message: '#^Call to an undefined static method Adereksisusanto\\FilamentShlink\\Models\\ShlinkConfig\:\:where\(\)\.$#'
+			identifier: staticMethod.notFound
+			count: 2
+			path: src/FilamentShlink.php
 
 		-
 			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Models\\ShortUrl\:\:\$shortCode\.$#'

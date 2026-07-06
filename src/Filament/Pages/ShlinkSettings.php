@@ -3,6 +3,7 @@
 namespace Adereksisusanto\FilamentShlink\Filament\Pages;
 
 use Adereksisusanto\FilamentShlink\FilamentShlink;
+use Adereksisusanto\FilamentShlink\Models\ShlinkConfig;
 use Filament\Actions\Action;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
@@ -27,9 +28,21 @@ class ShlinkSettings extends Page
 
     public function mount(): void
     {
+        $serverUrl = config('filament-shlink.server_url');
+        $apiKey = config('filament-shlink.api_key');
+
+        if (auth()->check()) {
+            $config = ShlinkConfig::where('user_id', auth()->id())->first();
+
+            if ($config) {
+                $serverUrl = $config->server_url;
+                $apiKey = $config->api_key;
+            }
+        }
+
         $this->form->fill([
-            'server_url' => config('filament-shlink.server_url'),
-            'api_key' => config('filament-shlink.api_key'),
+            'server_url' => $serverUrl,
+            'api_key' => $apiKey,
         ]);
     }
 
@@ -74,25 +87,35 @@ class ShlinkSettings extends Page
             return;
         }
 
-        $envPath = app()->environmentFilePath();
-        $envContent = file_get_contents($envPath);
+        if (auth()->check()) {
+            ShlinkConfig::updateOrCreate(
+                ['user_id' => auth()->id()],
+                [
+                    'server_url' => $data['server_url'],
+                    'api_key' => $data['api_key'],
+                ],
+            );
+        } else {
+            $envPath = app()->environmentFilePath();
+            $envContent = file_get_contents($envPath);
 
-        $replacements = [
-            'SHLINK_SERVER_URL' => $data['server_url'],
-            'SHLINK_API_KEY' => $data['api_key'],
-        ];
+            $replacements = [
+                'SHLINK_SERVER_URL' => $data['server_url'],
+                'SHLINK_API_KEY' => $data['api_key'],
+            ];
 
-        foreach ($replacements as $key => $value) {
-            $pattern = sprintf('/^%s=.*/m', preg_quote($key, '/'));
-            $replacement = $key . '=' . $value;
-            if (preg_match($pattern, $envContent)) {
-                $envContent = preg_replace($pattern, $replacement, $envContent);
-            } else {
-                $envContent .= PHP_EOL . $replacement;
+            foreach ($replacements as $key => $value) {
+                $pattern = sprintf('/^%s=.*/m', preg_quote($key, '/'));
+                $replacement = $key . '=' . $value;
+                if (preg_match($pattern, $envContent)) {
+                    $envContent = preg_replace($pattern, $replacement, $envContent);
+                } else {
+                    $envContent .= PHP_EOL . $replacement;
+                }
             }
-        }
 
-        file_put_contents($envPath, $envContent);
+            file_put_contents($envPath, $envContent);
+        }
 
         Notification::make()
             ->title(__('filament-shlink::filament-shlink.settings_saved'))
