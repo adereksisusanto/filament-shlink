@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Filament\\Pages\\ShlinkSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Filament/Pages/ShlinkSettings.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Filament\\Resources\\ShortUrlResource\\Pages\\CreateShortUrl\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Filament/Resources/ShortUrlResource/Pages/CreateShortUrl.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Filament\\Resources\\ShortUrlResource\\Pages\\EditShortUrl\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Filament/Resources/ShortUrlResource/Pages/EditShortUrl.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Models\\ShortUrl\:\:\$shortCode\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Filament/Resources/ShortUrlResource/Pages/ListShortUrls.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Models\\ShortUrl\:\:\$shortUrl\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Filament/Resources/ShortUrlResource/Pages/ListShortUrls.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Models\\Tag\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: src/Filament/Resources/TagResource/Pages/ListTags.php
+
+		-
+			message: '#^Access to an undefined property Adereksisusanto\\FilamentShlink\\Models\\ShortUrl\:\:\$shortCode\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Models/ShortUrl.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Models/ShortUrl.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: src/Models/Tag.php
+
+		-
+			message: '#^Access to an undefined property Shlinkio\\Shlink\\SDK\\Tags\\Model\\TagWithStats\:\:\$totalVisits\.$#'
+			identifier: property.notFound
+			count: 1
+			path: src/Models/TagStats.php

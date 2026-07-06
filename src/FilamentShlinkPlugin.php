@@ -2,6 +2,9 @@
 
 namespace Adereksisusanto\FilamentShlink;
 
+use Adereksisusanto\FilamentShlink\Filament\Pages\ShlinkSettings;
+use Adereksisusanto\FilamentShlink\Filament\Resources\ShortUrlResource;
+use Adereksisusanto\FilamentShlink\Filament\Resources\TagResource;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
@@ -14,7 +17,14 @@ class FilamentShlinkPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->resources([
+                ShortUrlResource::class,
+                TagResource::class,
+            ])
+            ->pages([
+                ShlinkSettings::class,
+            ]);
     }
 
     public function boot(Panel $panel): void

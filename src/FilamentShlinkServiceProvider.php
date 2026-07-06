@@ -24,11 +24,6 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        /*
-         * This class is a Package Service Provider
-         *
-         * More info: https://github.com/spatie/laravel-package-tools
-         */
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
             ->hasInstallCommand(function (InstallCommand $command) {
@@ -58,11 +53,15 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
         }
     }
 
-    public function packageRegistered(): void {}
+    public function packageRegistered(): void
+    {
+        $this->app->singleton(FilamentShlink::class, function () {
+            return new FilamentShlink();
+        });
+    }
 
     public function packageBooted(): void
     {
-        // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
             $this->getAssetPackageName()
@@ -73,10 +72,8 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
             $this->getAssetPackageName()
         );
 
-        // Icon Registration
         FilamentIcon::register($this->getIcons());
 
-        // Handle Stubs
         if (app()->runningInConsole()) {
             foreach (app(Filesystem::class)->files(__DIR__ . '/../stubs/') as $file) {
                 $this->publishes([
@@ -85,7 +82,6 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
             }
         }
 
-        // Testing
         Testable::mixin(new TestsFilamentShlink);
     }
 
@@ -94,21 +90,11 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
         return 'adereksisusanto/filament-shlink';
     }
 
-    /**
-     * @return array<Asset>
-     */
     protected function getAssets(): array
     {
-        return [
-            // AlpineComponent::make('filament-shlink', __DIR__ . '/../resources/dist/components/filament-shlink.js'),
-            // Css::make('filament-shlink-styles', __DIR__ . '/../resources/dist/filament-shlink.css'),
-            // Js::make('filament-shlink-scripts', __DIR__ . '/../resources/dist/filament-shlink.js'),
-        ];
+        return [];
     }
 
-    /**
-     * @return array<class-string>
-     */
     protected function getCommands(): array
     {
         return [
@@ -116,33 +102,21 @@ class FilamentShlinkServiceProvider extends PackageServiceProvider
         ];
     }
 
-    /**
-     * @return array<string>
-     */
     protected function getIcons(): array
     {
         return [];
     }
 
-    /**
-     * @return array<string>
-     */
     protected function getRoutes(): array
     {
         return [];
     }
 
-    /**
-     * @return array<string, mixed>
-     */
     protected function getScriptData(): array
     {
         return [];
     }
 
-    /**
-     * @return array<string>
-     */
     protected function getMigrations(): array
     {
         return [
