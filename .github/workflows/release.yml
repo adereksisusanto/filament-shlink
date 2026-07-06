@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Tag version (e.g. v1.2.3)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Run quality checks
+        run: composer check
+
+      - name: Generate release body
+        id: release_body
+        run: |
+          body="## What's Changed\n\n"
+          prev=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || git rev-list --max-parents=0 HEAD)
+          while IFS= read -r line; do
+            body+="- ${line}\n"
+          done < <(git log "$prev"..HEAD --pretty=format:"%s" --no-merges)
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          printf "%b" "$body" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.version }}
+          name: ${{ inputs.version }}
+          body: ${{ steps.release_body.outputs.body }}
+          generate_release_notes: true
+          draft: false
+          prerelease: false

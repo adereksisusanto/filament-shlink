@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'navigation_group' => 'Shlink',
+    'navigation_group' => 'Link Management',
     'short_urls' => 'Short URLs',
     'create_short_url' => 'Create Short URL',
     'short_url' => 'Short URL',
@@ -46,4 +46,12 @@ return [
     'error_deleting_tag' => 'Error deleting tag.',
     'short_urls_count' => 'Short URLs count',
     'connection_failed' => 'Connection failed. Please check your Server URL and API Key.',
+
+    'visits_overview' => [
+        'not_configured' => 'Not Configured',
+        'total_visits' => 'Total Visits',
+        'total_short_urls' => 'Short URLs',
+        'total_tags' => 'Tags',
+        'error' => 'Error loading data',
+    ],
 ];

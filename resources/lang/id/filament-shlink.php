@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'navigation_group' => 'Shlink',
+    'navigation_group' => 'Manajemen Tautan',
     'short_urls' => 'URL Pendek',
     'create_short_url' => 'Buat URL Pendek',
     'short_url' => 'URL Pendek',
@@ -46,4 +46,12 @@ return [
     'error_deleting_tag' => 'Gagal menghapus tag.',
     'short_urls_count' => 'Jumlah URL Pendek',
     'connection_failed' => 'Koneksi gagal. Periksa URL Server dan Kunci API Anda.',
+
+    'visits_overview' => [
+        'not_configured' => 'Belum Dikonfigurasi',
+        'total_visits' => 'Total Kunjungan',
+        'total_short_urls' => 'URL Pendek',
+        'total_tags' => 'Tag',
+        'error' => 'Gagal memuat data',
+    ],
 ];

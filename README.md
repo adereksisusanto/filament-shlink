@@ -56,12 +56,14 @@ return [
 
 - **Short URLs** — List, create, and edit short URLs
 - **Tags** — List, rename, and delete tags
+- **Dashboard Widget** — Visits overview widget showing total visits, short URLs, and tags
 - **Settings** — Configure server connection from the admin panel
 
 ## Usage
 
-Once registered, the plugin adds two menu items to your Filament panel:
+Once registered, the plugin adds the following to your Filament panel:
 
+- **Dashboard Widget** — `VisitsOverviewWidget` displays total visits, short URL count, and tag count (auto-registered on the dashboard)
 - **Short URLs** — View all short URLs, create new ones, edit existing ones
 - **Tags** — Manage tags (rename, delete)
 
@@ -83,6 +85,7 @@ The test suite covers:
 
 - **Models** — ShortUrl, Tag, and TagStats creation from Shlink SDK DTOs
 - **Service** — Configuration state, connection setup via `setConfig()`
+- **Widget** — Visits overview widget handles configured and unconfigured states
 - **Service Provider** — Singleton registration, config/translation/view loading
 - **Architecture** — Debug functions (`dd`, `dump`, `ray`) are not used anywhere in the source
 
